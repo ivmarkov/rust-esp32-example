@@ -1,18 +1,18 @@
 [package]
 name = "rustlib"
-version = "0.1.0"
+version = "0.2.0"
 authors = ["Espressif Systems CO LTD", "June Life Inc"]
 edition = "2018"
 
 [lib]
 crate-type = ["staticlib"]
 
-[build-dependencies]
-bindgen = "0.58"
-cbindgen = "0.19"
-
-[features]
-std = []
+[patch.crates-io]
+smol = { git = "https://github.com/ivmarkov/smol" }
+polling = { git = "https://github.com/ivmarkov/polling" }
+socket2 = { git = "https://github.com/ivmarkov/socket2" }
+getrandom = { version = "0.2", git = "https://github.com/ivmarkov/getrandom.git" }
+getrandom1 = { version = "0.1", git = "https://github.com/ivmarkov/getrandom.git", package = "getrandom", branch = "0.1" }
 
 [profile.dev]
 # Optimization level 1 is similar to "g" in gcc/clang, although for some reason
@@ -28,3 +28,37 @@ opt-level = "z"
 #opt-level = "z"
 #codegen-units = 1
 #panic = "abort"
+
+[features]
+std = []
+bind = []
+experimental = ["esp-idf-svc/experimental", "embedded-svc/experimental"]
+native = ["esp-idf-sys/native"]
+
+[dependencies]
+anyhow = {version = "1", features = ["backtrace"]}
+log = "0.4"
+url = "2"
+esp-idf-sys = { version = "0.20.6", features = ["native", "std"] }
+embedded-svc = "0.10"
+esp-idf-svc = { version = "0.23", default-features = false, features = ["std", "experimental"] }
+esp-idf-hal = "0.20"
+embedded-hal = "0.2"
+embedded-graphics = "0.7"
+display-interface = "0.4"
+display-interface-spi = "0.4"
+st7789 = "0.6"
+ili9341 = { version = "0.5", git = "https://github.com/yuri91/ili9341-rs" }
+ssd1306 = "0.7"
+smol = "1.2"
+
+#backtrace = { git = "https://github.com/ivmarkov/backtrace-rs.git" }
+
+[build-dependencies]
+embuild = "0.24.5"
+anyhow = "1"
+bindgen = "0.58"
+cbindgen = "0.19"
+
+# Future; might be possible once https://github.com/rust-lang/cargo/issues/9096 hits Cargo nightly:
+# rust-esp32-ulp-hello = { path = "../rust-esp32-ulp-hello", artifact = "bin" }

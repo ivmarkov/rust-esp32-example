@@ -1,4 +1,4 @@
-set(RUST_DEPS "clib")
+set(RUST_DEPS "clib" "nvs_flash" "pthread" "esp_http_client" "esp_http_server" "espcoredump" "app_update" "esp_serial_slave_link" "spi_flash" "esp_adc_cal")
 
 idf_component_register(
     SRCS "placeholder.c"
@@ -10,7 +10,7 @@ set(CARGO_BUILD_TYPE "release")
 set(CARGO_BUILD_ARG "--release")
 if(CONFIG_IDF_TARGET_ARCH_RISCV)
     set(CARGO_TARGET "riscv32imc-esp-espidf")
-    set(CARGO_FEATURES_ARG "")
+    set(CARGO_FEATURES_ARG "--features=std")
 elseif(CONFIG_IDF_TARGET_ARCH_XTENSA)
     set(CARGO_TARGET "xtensa-esp32-espidf")
     set(CARGO_FEATURES_ARG "--features=std")

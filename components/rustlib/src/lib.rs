@@ -5,9 +5,17 @@
 #[cfg(not(feature = "std"))]
 use core::panic::PanicInfo;
 
+#[cfg(feature = "std")]
+mod stddemo;
 
-/// Create aliases for FFI types for esp32c3, which doesn't have std.
-#[cfg(not(feature = "std"))]
+#[no_mangle]
+pub extern "C" fn rust_main() {
+    #[cfg(feature = "std")]
+    {
+        stddemo::main().unwrap();
+    }
+}
+
 mod ffi {
     #![allow(dead_code)]
     #![allow(non_upper_case_globals)]
