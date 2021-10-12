@@ -1,6 +1,6 @@
 [package]
 name = "rustlib"
-version = "0.2.0"
+version = "0.2.1"
 authors = ["Espressif Systems CO LTD", "June Life Inc"]
 edition = "2018"
 
@@ -39,7 +39,7 @@ native = ["esp-idf-sys/native"]
 anyhow = {version = "1", features = ["backtrace"]}
 log = "0.4"
 url = "2"
-esp-idf-sys = { version = "0.20.6", features = ["native", "std"] }
+esp-idf-sys = { version = "0.20.7", features = ["native", "std"] }
 embedded-svc = "0.10"
 esp-idf-svc = { version = "0.23", default-features = false, features = ["std", "experimental"] }
 esp-idf-hal = "0.20"
